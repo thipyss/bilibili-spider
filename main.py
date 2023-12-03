@@ -21,7 +21,8 @@ def get_comments(bv: str):
     for page in range(pages):
         params = {
             'type': 1,
-            'oid': av
+            'oid': av,
+            'next': page
         }
         decoder = Decode(params)
         query = decoder.decode()
