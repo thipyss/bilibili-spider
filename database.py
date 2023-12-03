@@ -4,8 +4,8 @@ class Database:
     def __init__(self):
         self.db = pymysql.connect(host='localhost',
                                   user='root',
-                                  password='123456',
-                                  db='test',
+                                  password='Ssz31212002',
+                                  db='bilibili',
                                   charset='utf8')
         self.cursor = self.db.cursor()
 
@@ -21,16 +21,13 @@ class Database:
             publish_time datetime,
             root_id bigint,
             parent_id bigint,
-            content varchar(1000),
+            content varchar(1000)
         )
-        '''
-        try:
-            self.cursor.execute(sql)
-            print('Successful')
-            self.db.commit()
-        except:
-            print('Failed')
-            self.db.rollback()
+        '''.format(table=table)
+        self.cursor.execute(sql)
+        print('Successful')
+        self.db.commit()
+
 
     def insert(self, table, data):
         keys = ','.join(data.keys())
@@ -43,6 +40,10 @@ class Database:
         except:
             print('Failed')
             self.db.rollback()
+
+    def multi_insert(self, table, datas):
+        for data in datas:
+            self.insert(table, data)
 
     def close(self):
         self.db.close()
